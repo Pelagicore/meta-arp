@@ -25,7 +25,7 @@ one year old releases in this fashion.
 
 License and Copyright
 ---------------------
-Copyright (C) 2016-2018 Pelagicore AB
+Copyright (C) 2018 Luxoft Sweden AB
 
 All metadata is MIT licensed unless otherwise stated. Source code included in
 tree for individual recipes is under the LICENSE stated in the associated
