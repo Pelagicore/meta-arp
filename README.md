@@ -1,4 +1,4 @@
-META-ARP
+meta-arp
 ========
 A Yocto/OpenEmbedded layer providing BSP for Automotive Reference Platform.
 
