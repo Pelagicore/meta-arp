@@ -21,7 +21,14 @@ void buildARP(String variant, String imageName) {
     }
 }
 
-parallel (
-    'arp':        { buildARP("arp",        "core-image-pelux-minimal") },
-    'arp-qtauto': { buildARP("arp-qtauto", "core-image-pelux-qtauto-neptune") },
-)
+def variantMap = [:]
+def variantList = env.VARIANT_LIST.split()
+
+variantList.each {
+    def list = it.split(":")
+    variantMap["${list[0]}"] = {
+        buildARP(list[0], list[1])
+    }
+}
+
+parallel (variantMap)
