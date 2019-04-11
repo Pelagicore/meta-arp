@@ -1,0 +1,14 @@
+[Unit]
+Description=Sends alive signals to LSF
+Requires=neptune.service
+
+[Service]
+User=root
+Type=simple
+ExecStartPre=/bin/sleep 2
+ExecStart=/usr/bin/lsfsync
+ExecStop=/bin/sleep 1
+WorkingDirectory=/home/root
+
+[Install]
+RequiredBy=neptune.service
