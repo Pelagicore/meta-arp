@@ -23,11 +23,14 @@ void buildARP(String variant, String imageName) {
         sh "rm -rf pelux-manifests/"
         sh "git clone https://github.com/Pelagicore/pelux-manifests.git -b ${branchName}"
         println("Using the specified branch for build: ${branchName}")
-
+        sh "cp -R ${arpDir} pelux-manifests/${arpDir}"
         dir('pelux-manifests') {
-            def code = load "ci-scripts/yocto.groovy"
-            String arpPath = "${env.WORKSPACE}/${arpDir}"
-            code.buildWithLayer(variant, imageName, arpDir, arpPath)
+            def customImage = docker.image("pelux/pelux-yocto:yoctouser")
+            customImage.inside("-v $WORKSPACE/pelux-manifests:/workspace -v /var/yocto-cache:/var/yocto-cache --cap-add=NET_ADMIN --device=/dev/net/tun") {
+                def code = load "ci-scripts/yocto2.groovy"
+                String arpPath = "/workspace/${arpDir}"
+                code.buildWithLayer(variant, imageName, arpDir, arpPath)
+            }
         }
     }
 }
